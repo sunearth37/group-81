@@ -15,50 +15,36 @@ print(cv2.__version__)
 import cv2
 import numpy as np
 
-# 이미지 로드
+# 이미지 처리
 image = cv2.imread('shapes.png')
 gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
-
-# 경계선 검출
 edges = cv2.Canny(gray, 50, 150)
-
-# Contours 검출
 contours, _ = cv2.findContours(edges, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
 
 # 도형별 개수 저장
 shape_count = {"triangle": 0, "rectangle": 0, "circle": 0}
 
 for contour in contours:
-    # 근사화된 Contour(단순화)
     approx = cv2.approxPolyDP(contour, 0.02 * cv2.arcLength(contour, True), True)
     vertices = len(approx)
 
     if vertices == 3:
         shape_type = "triangle"
     elif vertices == 4:
-        # 직사각형, 정사각형 판단
-        aspect_ratio = cv2.boundingRect(approx)[2] / cv2.boundingRect(approx)[3]
-        if 0.95 <= aspect_ratio <= 1.05:
-            shape_type = "rectangle"
-        else:
-            shape_type = "rectangle"
+        shape_type = "rectangle"
     else:
         shape_type = "circle"
-
-    # 도형 카운트 증가
     shape_count[shape_type] += 1
-
-# 결과 출력
 print("Detected Shapes:", shape_count)
 
-# 가장 많이 감지된 도형 찾기
+# 가장 많이 감지된 도형
 most_common_shape = max(shape_count, key=shape_count.get)
 print(f"Most common shape: {most_common_shape}")
 
 # 새 이미지 생성
 new_image = np.zeros((500, 500, 3), dtype="uint8")
 
-for _ in range(20):  # 20개의 도형을 그려볼게요.
+for _ in range(20):  # 도형 20개 생성
     x, y = np.random.randint(50, 450, size=2)
     size = np.random.randint(30, 100)
     color = tuple(np.random.randint(0, 255, size=3).tolist())
@@ -71,9 +57,9 @@ for _ in range(20):  # 20개의 도형을 그려볼게요.
     elif most_common_shape == "circle":
         cv2.circle(new_image, (x, y), size//2, color, -1)
 
-# 결과 저장
+# 결과
 cv2.imwrite("generated_image.png", new_image)
-cv2.imshow("Generated Image", new_image) #cv2_imshow(new_image) << colab환경 한정 (import 따로 해야함)
+cv2.imshow("Generated Image", new_image)
 cv2.waitKey(0)
 cv2.destroyAllWindows()
 
