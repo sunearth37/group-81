@@ -1,2 +1,2 @@
-파이썬 open CV를 이용해서 컬러 이미지를 흑백 이미지로 변환하는 코드를 작성했습니다.
-input.img와 output.img를 보면 알 수 있듯이 흑백으로 잘 변환된 것을 잘 볼 수 있습니다.
+I wrote a code to convert a color image to a shadow image using open CV.
+As you can see from input.img and output.img, it is converted well to the client.
