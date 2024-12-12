@@ -7,4 +7,4 @@
 ### Tae Yoon Kim: The program shows the picture with none color, reverse, mask color, only color at once
 ### Joo chan Kim: Simple web-based To-Do List application that allows users to manage their daily tasks efficiently
 ### Hyun Su Kim: The generater detects triangles, squares, and circles in images To create new images with the most detected shapes
-### Hui Seon Kim:
+### Hui Seon Kim: This program converts color images into black and white images when a user uploads an image.
